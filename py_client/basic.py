@@ -2,7 +2,7 @@ import requests
 
 
 # endpoint = "https://httpbin.org/status/200/"
-endpoint = "http://localhost:8000/api" #this endpoint is a working real endpoint for our project purposes
+endpoint = "http://localhost:8000/api/" #this endpoint is a working real endpoint for our project purposes
 
 get_response = requests.get(endpoint, params={"abc":123}, json={"query":"Hello world"}) # GET/HTTP request for WEB API aka Application programming interface
 
