@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from products.models import Product
+from products.serializers import ProductSerializer
 # Create your views here.
-@api_view(["GET", "POST"])
+@api_view(["GET"])
 def api_home(request, *args, **kwargs):
     """This is now a DJANGO REST FRAMEWORK API VIEW WHEN WE MAKE THE REST_FRAMEWORK IMPORTS ABOVE"""
     #request -> HttpRequest -> Django
@@ -18,10 +19,11 @@ def api_home(request, *args, **kwargs):
     #=====================converting byte str to JSON =========================================
     if request .method != "Post":
         Response({"detail":"You are not allow to post from this server"}, status=405)
-    model_data = Product.objects.all().order_by("?").first()
+    instance = Product.objects.all().order_by("?").first()
     data = {} #<==converting the byte string to JSON AND STORING THE CONTENT INTO PYTHON DICT
-    if model_data:
-        data = model_to_dict(model_data, fields=['id','title', 'price', 'sale_price']) #<<====You can now specify which fiend you want to extract here
+    if instance:
+        data = ProductSerializer(instance).data
+        # data = model_to_dict(instance, fields=['id','title', 'price', 'sale_price']) #<<====You can now specify which fiend you want to extract here
         # data['id'] = model_data.id
         # data['title'] = model_data.title
         # data['content'] = model_data.content

@@ -10,3 +10,9 @@ class Product(models.Model):
     @property
     def sale_price(self):
         return "%.2f" %(float(self.price) * 0.8)
+    
+    def discount(self):
+        return "122"
+    
+    def test_field(self):
+        return "CaliCo"
