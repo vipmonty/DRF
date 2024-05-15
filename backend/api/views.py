@@ -2,19 +2,26 @@ import json # imported this package to convert byte str to JSON: the byte str is
 from django.forms.models import model_to_dict
 from django.http import JsonResponse
 
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 from products.models import Product
 # Create your views here.
+@api_view(["GET", "POST"])
 def api_home(request, *args, **kwargs):
+    """This is now a DJANGO REST FRAMEWORK API VIEW WHEN WE MAKE THE REST_FRAMEWORK IMPORTS ABOVE"""
     #request -> HttpRequest -> Django
     #request.body is from the Django package
     # print(f"GET param test: {request.GET}") #url query params
     # print(f"POST param test: {request.POST}" )
     # body = request.body # JSON data in byte string which look like this on the cmd: b'{"query": "Hello world"}'
     #=====================converting byte str to JSON =========================================
+    if request .method != "Post":
+        Response({"detail":"You are not allow to post from this server"}, status=405)
     model_data = Product.objects.all().order_by("?").first()
     data = {} #<==converting the byte string to JSON AND STORING THE CONTENT INTO PYTHON DICT
     if model_data:
-        data = model_to_dict(model_data, fields=['id','title', 'price']) #<<====You can now specify which fiend you want to extract here
+        data = model_to_dict(model_data, fields=['id','title', 'price', 'sale_price']) #<<====You can now specify which fiend you want to extract here
         # data['id'] = model_data.id
         # data['title'] = model_data.title
         # data['content'] = model_data.content
@@ -35,4 +42,4 @@ def api_home(request, *args, **kwargs):
     #===================================================================
     # print(body)#<==== body of request in byte str
     # return JsonResponse({"message": "Hello old friend"}) <===If uncommented it will just return hard code message
-    return JsonResponse(data) #<========this will return the Jason response in python dict when requested by basic.py
+    return Response(data) #<========this will return the Jason response in python dict when requested by basic.py
