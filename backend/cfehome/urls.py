@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')) # what this does is add 'api/' as endpoint: localhost:8000/api/ and include('api.urls') maps it to urls.py in app folder
+    path('api/', include('api.urls')), # what this does is add 'api/' as endpoint: localhost:8000/api/ and include('api.urls') maps it to urls.py in app folder
+    path('api/products/', include('products.urls')) 
 ]

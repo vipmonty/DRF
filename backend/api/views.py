@@ -11,10 +11,11 @@ from products.serializers import ProductSerializer
 @api_view(["POST"])
 def api_home(request, *args, **kwargs):
     serializer = ProductSerializer(data=request.data)
-    if serializer.is_valid():
+    if serializer.is_valid(raise_exception=True):
         instance = serializer.save()
         print(instance)
         return Response(serializer.data)
+    return Response({"invalid": "Not good data"}, status=400)
     """This is now a DJANGO REST FRAMEWORK API VIEW WHEN WE MAKE THE REST_FRAMEWORK IMPORTS ABOVE"""
     #request -> HttpRequest -> Django
     #request.body is from the Django package
