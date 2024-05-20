@@ -16,3 +16,4 @@ class Product(models.Model):
     
     def test_field(self):
         return "CaliCo"
+    
