@@ -1,6 +1,6 @@
 import requests
-
-endpoint = "http://localhost:8000/api/products/1"
+pk = int(input('Please enter the product ID of desired product.'))
+endpoint = f"http://localhost:8000/api/products/{pk}"
 
 get_response = requests.get(endpoint)
 
